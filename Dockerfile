@@ -30,6 +30,9 @@ RUN composer dump-autoload --optimize \
        bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache
 
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+CMD ["sh", "-c", "php artisan optimize:clear && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
