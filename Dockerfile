@@ -43,5 +43,5 @@ ENV QUEUE_CONNECTION=sync
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "php artisan optimize:clear && php artisan migrate --force && exec php artisan serve --host=0.0.0.0 --port=8000"]
+CMD ["sh", "-c", "php artisan optimize:clear && php artisan migrate --force && exec php artisan serve --no-reload --host=0.0.0.0 --port=8000"]
         
