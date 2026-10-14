@@ -23,16 +23,22 @@ RUN composer install \
 
 COPY . .
 
-RUN composer dump-autoload --optimize \
-    && mkdir -p storage/framework/cache \
-       storage/framework/sessions \
-       storage/framework/views \
-       bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+RUN mkdir -p storage/framework/cache \
+    storage/framework/sessions \
+    storage/framework/views \
+    bootstrap/cache \
+    && touch database/database.sqlite \
+    && chmod -R 775 storage bootstrap/cache \
+    && chmod 664 database/database.sqlite
 
 ENV APP_ENV=production
 ENV APP_DEBUG=false
+ENV DB_CONNECTION=sqlite
+ENV DB_DATABASE=/app/database/database.sqlite
+ENV SESSION_DRIVER=file
+ENV CACHE_STORE=file
+ENV QUEUE_CONNECTION=sync
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan optimize:clear && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
+CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"]
