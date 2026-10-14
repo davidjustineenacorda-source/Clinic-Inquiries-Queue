@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -16,6 +15,9 @@ Route::get('/patients/create', [PatientController::class, 'create'])
 
 Route::post('/patients', [PatientController::class, 'store'])
     ->name('patients.store');
+
 Route::get('/debug-output', function () {
     return response('CLINIC TEST OK', 200);
-});        
+});
+
+   
