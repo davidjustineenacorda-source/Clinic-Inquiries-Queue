@@ -23,6 +23,8 @@ RUN composer install \
 
 COPY . .
 
+RUN composer dump-autoload --no-dev --optimize
+
 RUN mkdir -p storage/framework/cache \
     storage/framework/sessions \
     storage/framework/views \
